@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import apiClient from "../api/apiClient";
 import { Product } from "../types/Product";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -17,6 +19,10 @@ const ProductsPage = () => {
 
     fetchProducts();
   }, []);
+
+  const handleViewClick = (id: number) => {
+    navigate(`/product/${id}`);
+  };
 
   return (
     <div>
@@ -32,6 +38,7 @@ const ProductsPage = () => {
             <th>Készlet (db)</th>
             <th>Leírás</th>
             <th>Kép URL</th>
+            <th>Művelet</th>
           </tr>
         </thead>
         <tbody>
@@ -44,6 +51,11 @@ const ProductsPage = () => {
               <td>{product.keszlet}</td>
               <td>{product.leiras}</td>
               <td>{product.kepUrl}</td>
+              <td>
+                <button onClick={() => handleViewClick(product.id)}>
+                  Megtekintés
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
