@@ -14,12 +14,12 @@ const ProductPage = () => {
         const response = await apiClient.get<Product>(`/termekek/${id}`);
         setProduct(response.data);
       } catch (err: any) {
-        console.error(err.message || "Hiba történt a termék lekérése közben.");
+        alert(err.message || "Hiba történt a termék lekérése közben.");
       }
     };
 
     fetchProduct();
-  }, []);
+  }, [id]);
 
   return (
     <div>
